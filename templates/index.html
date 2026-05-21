@@ -15,13 +15,13 @@
     <!--Navbar-->
     <nav class="bg-neutral-primary w-full z-20 top-0 start-0 border-b border-default">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <img src="logo.svg" class="h-7" alt="Flowbite Logo" />
+            <a href="{{ url_for('inicio') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="{{ url_for('static', filename='logo.svg') }}" class="h-7" alt="Flowbite Logo" />
             </a>
             <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-4">
 
                 <!-- Botón Usuario -->
-                <a href="login.html" lass="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary">
+                <a href="{{ url_for('login') }}" lass="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <rect x="2" y="2" width="20" height="20" rx="6" stroke-width="1.5"></rect>
                     <circle cx="12" cy="9" r="3" stroke-width="1.5"></circle>
@@ -64,7 +64,7 @@
                             class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Marcas</a>
                     </li>
                     <li>
-                        <a href="busqueda.html"
+                        <a href="{{ url_for('busqueda') }}"
                             class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Buscar</a>
                     </li>
                 </ul>
@@ -73,7 +73,7 @@
     </nav>
     <!--Banner-->
     <div class="relative h-32 overflow-hidden rounded-base md:h-96 mb-8">
-        <img src="imagenes/slider1.png" alt="banner">
+        <img src="{{ url_for('static', filename='imagenes/slider1.png') }}" alt="banner">
     </div>
     <!--Categorias-->
     <div class="flex justify-center">
@@ -85,16 +85,16 @@
         <ul class="flex flex-row justify-center gap-4">
 
             <li>
-                <a href=""><img class="w-80" src="imagenes/Catpage-Calzado.png" alt="" class="h-full"></a>
+                <a href=""><img class="w-80" src="{{ url_for('static', filename='imagenes/Catpage-Calzado.png') }}" alt="" class="h-full"></a>
             </li>
             <li>
-                <a href=""><img class="w-80" src="imagenes/Catpage-Moda-Hombre.png" alt="" class="h-full"></a>
+                <a href=""><img class="w-80" src="{{ url_for('static', filename='imagenes/Catpage-Moda-Hombre.png') }}" alt="" class="h-full"></a>
             </li>
             <li>
-                <a href=""><img class="w-80" src="imagenes/Catpage-Accesorios.png" alt="" class="h-full"></a>
+                <a href=""><img class="w-80" src="{{ url_for('static', filename='imagenes/Catpage-Accesorios.png') }}" alt="" class="h-full"></a>
             </li>
             <li>
-                <a href=""><img class="w-80" src="imagenes/Catpage-Moda-Mujer.png" alt="" class="h-full"></a>
+                <a href=""><img class="w-80" src="{{ url_for('static', filename='imagenes/Catpage-Moda-Mujer.png') }}" alt="" class="h-full"></a>
             </li>
 
         </ul>
@@ -105,11 +105,11 @@
     <section class="container mx-auto my-16">
         <div class="flex items-center justify-between mb-6">
             <h2 class="text-2xl font-bold">Productos destacados</h2>
-            <a href="busqueda.html" class="text-sm text-brand hover:underline">Ver todos</a>
+            <a href="{{ url_for('busqueda') }}" class="text-sm text-brand hover:underline">Ver todos</a>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <a href="detalle.html" class="group block">
+            <a href="{{ url_for('detalle') }}" class="group block">
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-200">
                     <div class="relative bg-gray-100 h-56 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=600&fit=crop" alt="Producto 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
@@ -125,7 +125,7 @@
                 </div>
             </a>
 
-            <a href="detalle.html" class="group block">
+            <a href="{{ url_for('detalle') }}" class="group block">
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-200">
                     <div class="relative bg-gray-100 h-56 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1548126033-3080ca022206?w=800&h=600&fit=crop" alt="Producto 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
@@ -141,7 +141,7 @@
                 </div>
             </a>
 
-            <a href="detalle.html" class="group block">
+            <a href="{{ url_for('detalle') }}" class="group block">
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-200">
                     <div class="relative bg-gray-100 h-56 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1503342394128-c104cbb9810d?w=800&h=600&fit=crop" alt="Producto 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
@@ -157,7 +157,7 @@
                 </div>
             </a>
 
-            <a href="detalle.html" class="group block">
+            <a href="{{ url_for('detalle') }}" class="group block">
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-200">
                     <div class="relative bg-gray-100 h-56 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1551028719-00167b16ebc5?w=800&h=600&fit=crop" alt="Producto 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
@@ -186,9 +186,9 @@
             <div>
                 <h4 class="font-bold mb-3">Enlaces</h4>
                 <ul class="text-sm text-gray-300 space-y-2">
-                    <li><a href="index.html" class="hover:underline">Inicio</a></li>
-                    <li><a href="busqueda.html" class="hover:underline">Productos</a></li>
-                    <li><a href="login.html" class="hover:underline">Mi cuenta</a></li>
+                    <li><a href="{{ url_for('inicio') }}" class="hover:underline">Inicio</a></li>
+                    <li><a href="{{ url_for('busqueda') }}" class="hover:underline">Productos</a></li>
+                    <li><a href="{{ url_for('login') }}" class="hover:underline">Mi cuenta</a></li>
                 </ul>
             </div>
 

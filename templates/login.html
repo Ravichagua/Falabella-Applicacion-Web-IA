@@ -13,8 +13,8 @@
     <!--Navbar-->
     <nav class="bg-neutral-primary w-full z-20 top-0 start-0 border-b border-default">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-            <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <img src="logo.svg" class="h-7" alt="Flowbite Logo" />
+            <a href="{{ url_for('inicio') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="{{ url_for('static', filename='logo.svg') }}" class="h-7" alt="Flowbite Logo" />
             </a>
             <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-4">
                 
@@ -31,7 +31,7 @@
                 </button>
                 
                 <!-- Botón Carrito -->
-                <a href="/" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary" aria-label="Carrito">
+                <a href="{{ url_for('inicio') }}" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary" aria-label="Carrito">
                     <svg class="w-16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293a1 1 0 00.707 1.707H17" />
                     </svg>
@@ -53,24 +53,24 @@
                 <ul
                     class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-default rounded-base bg-neutral-secondary-soft md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-neutral-primary">
                     <li>
-                        <a href="index.html"
+                        <a href="{{ url_for('inicio') }}"
                             class="block py-2 px-3 text-white bg-brand rounded md:bg-transparent md:text-fg-brand md:p-0"
                             aria-current="page">Home</a>
                     </li>
                     <li>
-                        <a href="busqueda.html"
+                        <a href="{{ url_for('busqueda') }}"
                             class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Categorias</a>
                     </li>
                     <li>
-                        <a href="index.html"
+                        <a href="{{ url_for('inicio') }}"
                             class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Ofertas</a>
                     </li>
                     <li>
-                        <a href="index.html"
+                        <a href="{{ url_for('inicio') }}"
                             class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Marcas</a>
                     </li>
                     <li>
-                        <a href="busqueda.html"
+                        <a href="{{ url_for('busqueda') }}"
                             class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Buscar</a>
                     </li>
                 </ul>
@@ -78,7 +78,7 @@
         </div>
     </nav>
 
-    <div class="min-h-[calc(100vh)] bg-gray-50 flex items-center justify-center px-4 bg-[url('imagenes/fondo5.jpg')] bg-cover">
+    <div class="min-h-[calc(100vh)] bg-gray-50 flex items-center justify-center px-4 bg-cover bg-center" style="background-image: url('{{ url_for('static', filename='imagenes/fondo5.jpg') }}');">
         <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-8">
             <div class="text-center mb-8">
                 <h1 class="text-3xl font-bold text-heading">Iniciar sesión</h1>
