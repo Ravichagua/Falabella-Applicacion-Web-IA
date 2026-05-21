@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, jsonify # type: ignore
+from flask import Flask, render_template, jsonify, redirect, url_for # type: ignore
 from dotenv import load_dotenv
 import os
 
@@ -33,7 +33,8 @@ def login():
 
 @app.route("/busqueda")
 def busqueda():
-    return render_template("busqueda.html")
+    productos = Producto.query.all()
+    return render_template("busqueda.html", productos=productos)
 
 @app.route("/dashboard")
 def dashboard():
@@ -41,8 +42,23 @@ def dashboard():
 
 
 @app.route("/detalle")
-def detalle():
-    return render_template("detalle.html")
+def detalle_default():
+    primer_producto = Producto.query.order_by(Producto.id.asc()).first()
+    if primer_producto is None:
+        return redirect(url_for('busqueda'))
+    return redirect(url_for('detalle', producto_id=primer_producto.id))
+
+
+@app.route("/detalle/<int:producto_id>")
+def detalle(producto_id):
+    producto = Producto.query.get_or_404(producto_id)
+    relacionados = (
+        Producto.query
+        .filter(Producto.id != producto.id)
+        .limit(4)
+        .all()
+    )
+    return render_template("detalle.html", producto=producto, relacionados=relacionados)
 
 @app.route("/api/productos")
 def api_productos():

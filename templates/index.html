@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}">
 </head>
 
 <body>
@@ -109,7 +107,7 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <a href="{{ url_for('detalle') }}" class="group block">
+            <a href="{{ url_for('detalle',producto_id=1) }}" class="group block">
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-200">
                     <div class="relative bg-gray-100 h-56 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=600&fit=crop" alt="Producto 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
@@ -125,7 +123,7 @@
                 </div>
             </a>
 
-            <a href="{{ url_for('detalle') }}" class="group block">
+            <a href="{{ url_for('detalle',producto_id=1) }}" class="group block">
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-200">
                     <div class="relative bg-gray-100 h-56 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1548126033-3080ca022206?w=800&h=600&fit=crop" alt="Producto 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
@@ -141,7 +139,7 @@
                 </div>
             </a>
 
-            <a href="{{ url_for('detalle') }}" class="group block">
+            <a href="{{ url_for('detalle',producto_id=1) }}" class="group block">
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-200">
                     <div class="relative bg-gray-100 h-56 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1503342394128-c104cbb9810d?w=800&h=600&fit=crop" alt="Producto 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
@@ -157,7 +155,7 @@
                 </div>
             </a>
 
-            <a href="{{ url_for('detalle') }}" class="group block">
+            <a href="{{ url_for('detalle',producto_id=1) }}" class="group block">
                 <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-200">
                     <div class="relative bg-gray-100 h-56 overflow-hidden">
                         <img src="https://images.unsplash.com/photo-1551028719-00167b16ebc5?w=800&h=600&fit=crop" alt="Producto 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200">
@@ -209,7 +207,7 @@
     </footer>
 
 
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
+    <script src="{{ url_for('static', filename='js/flowbite.js') }}"></script>
 
 </body>
 

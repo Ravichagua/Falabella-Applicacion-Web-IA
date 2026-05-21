@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}">
+    <!-- Flowbite JS still required for some components; offline include optional via static/js/flowbite.js if installed -->
 </head>
 <body>
     <!--Navbar-->
@@ -161,7 +160,7 @@
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
                         <div>
                             <h1 class="text-2xl md:text-3xl font-bold text-heading">Productos</h1>
-                            <p class="text-body mt-1">Mostrando 12 productos</p>
+                            <p class="text-body mt-1">Mostrando {{ productos|length }} productos</p>
                         </div>
                         <select class="w-40 px-4 py-2 border border-default rounded-base bg-white text-body focus:outline-none focus:ring-2 focus:ring-brand">
                             <option>Más relevante</option>
@@ -172,70 +171,30 @@
                     </div>
 
                     <!-- Grid de Tarjetas de Productos -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                        
-                        <!-- Tarjeta Producto 1 -->
-                        <a href="{{ url_for('detalle') }}" class="group block">
-                        <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-200 cursor-pointer">
-                            <div class="relative bg-gray-200 h-48 sm:h-56 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop" 
-                                     alt="Camiseta Clásica" class="w-full h-full object-cover hover:scale-105 transition-transform duration-200">
-                            </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-heading text-base mb-2 line-clamp-2">Camiseta Clásica de Algodón</h3>
-                                <p class="text-body text-sm mb-3">Camisetas - Nike</p>
-                                <div class="flex items-end gap-2 mb-4">
-                                    <span class="text-2xl font-bold text-brand">$24</span>
+                    <div id="productos-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {% for producto in productos %}
+                        <a href="{{ url_for('detalle', producto_id=producto.id) }}" class="group block">
+                            <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-200 cursor-pointer h-full">
+                                <div class="relative bg-gray-200 h-48 sm:h-56 overflow-hidden">
+                                    <img src="{{ producto.imagen_path }}"
+                                         alt="{{ producto.nombre }}"
+                                         class="w-full h-full object-cover hover:scale-105 transition-transform duration-200">
+                                </div>
+                                <div class="p-4">
+                                    <h3 class="font-semibold text-heading text-base mb-2 line-clamp-2">{{ producto.nombre }}</h3>
+                                    <p class="text-body text-sm mb-3">{{ producto.categoria }} - {{ producto.marca }}</p>
+                                    <div class="flex items-end gap-2 mb-4">
+                                        <span class="text-2xl font-bold text-brand">S/.{{ '%.2f'|format(producto.precio) }}</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         </a>
-                        <!-- Tarjeta Producto 1 -->
-                        <a href="{{ url_for('detalle') }}" class="group block">
-                        <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-200 cursor-pointer">
-                            <div class="relative bg-gray-200 h-48 sm:h-56 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop" 
-                                     alt="Camiseta Clásica" class="w-full h-full object-cover hover:scale-105 transition-transform duration-200">
-                            </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-heading text-base mb-2 line-clamp-2">Camiseta Clásica de Algodón</h3>
-                                <p class="text-body text-sm mb-3">Camisetas - Nike</p>
-                                <div class="flex items-end gap-2 mb-4">
-                                    <span class="text-2xl font-bold text-brand">$24</span>
-                                </div>
-                            </div>
+                        {% else %}
+                        <div class="col-span-full bg-white rounded-lg shadow-sm p-6 text-body">
+                            No hay productos disponibles.
                         </div>
-                        </a><!-- Tarjeta Producto 1 -->
-                        <a href="{{ url_for('detalle') }}" class="group block">
-                        <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-200 cursor-pointer">
-                            <div class="relative bg-gray-200 h-48 sm:h-56 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop" 
-                                     alt="Camiseta Clásica" class="w-full h-full object-cover hover:scale-105 transition-transform duration-200">
-                            </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-heading text-base mb-2 line-clamp-2">Camiseta Clásica de Algodón</h3>
-                                <p class="text-body text-sm mb-3">Camisetas - Nike</p>
-                                <div class="flex items-end gap-2 mb-4">
-                                    <span class="text-2xl font-bold text-brand">$24</span>
-                                </div>
-                            </div>
-                        </div>
-                        </a><!-- Tarjeta Producto 1 -->
-                        <a href="{{ url_for('detalle') }}" class="group block">
-                        <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-200 cursor-pointer">
-                            <div class="relative bg-gray-200 h-48 sm:h-56 overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=300&fit=crop" 
-                                     alt="Camiseta Clásica" class="w-full h-full object-cover hover:scale-105 transition-transform duration-200">
-                            </div>
-                            <div class="p-4">
-                                <h3 class="font-semibold text-heading text-base mb-2 line-clamp-2">Camiseta Clásica de Algodón</h3>
-                                <p class="text-body text-sm mb-3">Camisetas - Nike</p>
-                                <div class="flex items-end gap-2 mb-4">
-                                    <span class="text-2xl font-bold text-brand">$24</span>
-                                </div>
-                            </div>
-                        </div>
-                        </a>
+                        {% endfor %}
+                    </div>
 
                     <!-- Paginación -->
                     <div class="flex justify-center items-center gap-2 mt-12">
@@ -252,3 +211,5 @@
     </div>
 </body>
 </html>
+<!-- Flowbite JS local -->
+<script src="{{ url_for('static', filename='js/flowbite.js') }}"></script>

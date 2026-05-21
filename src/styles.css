@@ -1,0 +1,6 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Flowbite components (installed via npm) */
+@import "../node_modules/flowbite/dist/flowbite.css";

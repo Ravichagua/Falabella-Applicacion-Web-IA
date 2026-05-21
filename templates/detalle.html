@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <link href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}">
+    <!-- Flowbite JS still required for some components; offline include optional via static/js/flowbite.js if installed -->
 </head>
 
 <body>
@@ -78,9 +77,9 @@
                 <div>
                     <a href="{{ url_for('inicio') }}" class="text-body hover:text-brand">Inicio</a>
                     <span class="text-body mx-2">/</span>
-                    <a href="{{ url_for('busqueda') }}" class="text-body hover:text-brand">Camisetas</a>
+                    <a href="{{ url_for('busqueda') }}" class="text-body hover:text-brand">{{ producto.categoria }}</a>
                     <span class="text-body mx-2">/</span>
-                    <span class="text-heading font-medium">Camiseta Clásica de Algodón</span>
+                    <span class="text-heading font-medium">{{ producto.nombre }}</span>
                 </div>
 
 
@@ -104,16 +103,16 @@
                 <div class="flex flex-col md:flex-row gap-4">
                     <!-- Imágenes Miniatura -->
                     <div class="flex md:flex-col gap-3 order-2 md:order-1">
-                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=150&h=150&fit=crop"
+                        <img src="{{ producto.imagen_path }}"
                             alt="Miniatura 1"
                             class="w-20 h-20 rounded-lg cursor-pointer border-2 border-brand object-cover hover:border-brand transition-colors">
-                        <img src="https://images.unsplash.com/photo-1548126033-3080ca022206?w=150&h=150&fit=crop"
+                        <img src="{{ producto.imagen_path }}"
                             alt="Miniatura 2"
                             class="w-20 h-20 rounded-lg cursor-pointer border-2 border-gray-300 object-cover hover:border-brand transition-colors">
-                        <img src="https://images.unsplash.com/photo-1503342394128-c104cbb9810d?w=150&h=150&fit=crop"
+                        <img src="{{ producto.imagen_path }}"
                             alt="Miniatura 3"
                             class="w-20 h-20 rounded-lg cursor-pointer border-2 border-gray-300 object-cover hover:border-brand transition-colors">
-                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=150&h=150&fit=crop"
+                        <img src="{{ producto.imagen_path }}"
                             alt="Miniatura 4"
                             class="w-20 h-20 rounded-lg cursor-pointer border-2 border-gray-300 object-cover hover:border-brand transition-colors">
                     </div>
@@ -121,8 +120,8 @@
                     <!-- Imagen Principal -->
                     <div class="relative overflow-hidden aspect-square w-full order-1 md:order-2">
                         <img id="mainImage"
-                            src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=800&fit=crop"
-                            alt="Camiseta Clásica de Algodón" class="w-full object-contain">
+                            src="{{ producto.imagen_path }}"
+                            alt="{{ producto.nombre }}" class="w-full object-contain">
                     </div>
                 </div>
 
@@ -130,29 +129,23 @@
                 <div class="flex flex-col">
                     <!-- Encabezado -->
                     <div class="mb-4">
-                        <h1 class="text-3xl md:text-4xl font-bold text-heading mb-3">Camiseta Clásica de Algodón</h1>
+                        <h1 id="productTitle" class="text-3xl md:text-4xl font-bold text-heading mb-3">{{ producto.nombre }}</h1>
                     </div>
 
                     <!-- Precio -->
                     <div class="mb-6 pb-6 border-b border-default">
                         <div class="flex items-baseline gap-3 mb-3">
-                            <span class="text-3xl font-bold text-brand">s/.80</span>
-                            <span class="text-2xl text-body line-through">s/.100</span>
-                            <span
-                                class="inline-block px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">Ahorra
-                                -20%</span>
+                            <span id="productPrice" class="text-3xl font-bold text-brand">S/.{{ '%.2f'|format(producto.precio) }}</span>
+                            <span id="productOldPrice" class="text-2xl text-body line-through" style="display:none"></span>
+                            <span id="productSave" class="inline-block px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium" style="display:none"></span>
                         </div>
                     </div>
 
                     <!-- Descripción -->
                     <div class="mb-6 pb-6 border-b border-default">
                         <h3 class="font-semibold text-heading mb-3">Descripción</h3>
-                        <p class="text-body leading-relaxed">
-                            Camiseta premium elaborada con 100% algodón de alta calidad. Perfecta para el día a día,
-                            combina comodidad y estilo.
-                            Cuello redondo clásico, mangas cortas y un ajuste relajado que te hará lucir impecable.
-                            Disponible en múltiples colores
-                            para que encuentres el tuyo.
+                        <p id="productDescription" class="text-body leading-relaxed">
+                            {{ producto.descripcion }}
                         </p>
                     </div>
 
@@ -221,8 +214,25 @@
             <!-- Productos Relacionados -->
             <div class="mt-16 pt-16 border-t border-default">
                 <h2 class="text-2xl md:text-3xl font-bold text-heading mb-8">Productos Relacionados</h2>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-
+                <div id="relatedProducts" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    {% for relacionado in relacionados %}
+                    <a href="{{ url_for('detalle', producto_id=relacionado.id) }}" class="group block">
+                        <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-200 cursor-pointer">
+                            <div class="relative bg-gray-200 h-48 sm:h-56 overflow-hidden">
+                                <img src="{{ relacionado.imagen_path }}"
+                                    alt="{{ relacionado.nombre }}"
+                                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-200">
+                            </div>
+                            <div class="p-4">
+                                <h3 class="font-semibold text-heading text-base mb-2 line-clamp-2">{{ relacionado.nombre }}</h3>
+                                <p class="text-body text-sm mb-3">{{ relacionado.categoria }} - {{ relacionado.marca }}</p>
+                                <div class="flex items-end gap-2 mb-4">
+                                    <span class="text-2xl font-bold text-brand">${{ '%.2f'|format(relacionado.precio) }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -253,7 +263,11 @@
                 this.classList.add('border-brand');
             });
         });
+
+        // La información principal y los relacionados llegan desde Jinja.
     </script>
 </body>
 
 </html>
+<!-- Flowbite JS local -->
+<script src="{{ url_for('static', filename='js/flowbite.js') }}"></script>
