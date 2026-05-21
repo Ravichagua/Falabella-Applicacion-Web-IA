@@ -103,16 +103,16 @@
                 <div class="flex flex-col md:flex-row gap-4">
                     <!-- Imágenes Miniatura -->
                     <div class="flex md:flex-col gap-3 order-2 md:order-1">
-                        <img src="{{ producto.imagen_path }}"
+                        <img src="{{ url_for('static', filename='imagenes/productos/' + producto.imagen_path) }}"
                             alt="Miniatura 1"
                             class="w-20 h-20 rounded-lg cursor-pointer border-2 border-brand object-cover hover:border-brand transition-colors">
-                        <img src="{{ producto.imagen_path }}"
+                        <img src="{{ url_for('static', filename='imagenes/productos/' + producto.imagen_path) }}"
                             alt="Miniatura 2"
                             class="w-20 h-20 rounded-lg cursor-pointer border-2 border-gray-300 object-cover hover:border-brand transition-colors">
-                        <img src="{{ producto.imagen_path }}"
+                        <img src="{{ url_for('static', filename='imagenes/productos/' + producto.imagen_path) }}"
                             alt="Miniatura 3"
                             class="w-20 h-20 rounded-lg cursor-pointer border-2 border-gray-300 object-cover hover:border-brand transition-colors">
-                        <img src="{{ producto.imagen_path }}"
+                        <img src="{{ url_for('static', filename='imagenes/productos/' + producto.imagen_path) }}"
                             alt="Miniatura 4"
                             class="w-20 h-20 rounded-lg cursor-pointer border-2 border-gray-300 object-cover hover:border-brand transition-colors">
                     </div>
@@ -120,7 +120,7 @@
                     <!-- Imagen Principal -->
                     <div class="relative overflow-hidden aspect-square w-full order-1 md:order-2">
                         <img id="mainImage"
-                            src="{{ producto.imagen_path }}"
+                            src="{{ url_for('static', filename='imagenes/productos/' + producto.imagen_path) }}"
                             alt="{{ producto.nombre }}" class="w-full object-contain">
                     </div>
                 </div>
@@ -219,7 +219,7 @@
                     <a href="{{ url_for('detalle', producto_id=relacionado.id) }}" class="group block">
                         <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-lg transition-shadow duration-200 cursor-pointer">
                             <div class="relative bg-gray-200 h-48 sm:h-56 overflow-hidden">
-                                <img src="{{ relacionado.imagen_path }}"
+                                <img src="{{ url_for('static', filename='imagenes/productos/' + relacionado.imagen_path) }}"
                                     alt="{{ relacionado.nombre }}"
                                     class="w-full h-full object-cover hover:scale-105 transition-transform duration-200">
                             </div>

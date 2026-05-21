@@ -82,16 +82,22 @@
                 <h1 class="text-3xl font-bold text-heading">Iniciar sesión</h1>
             </div>
 
-            <form class="space-y-5">
+            {% if error %}
+            <div class="mb-4 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            <form class="space-y-5" method="post" action="{{ url_for('login') }}">
                 <div>
                     <label for="email" class="block text-sm font-medium text-heading mb-2">Correo electrónico</label>
-                    <input id="email" type="email" placeholder="tu@email.com"
+                    <input id="email" name="email" type="email" placeholder="usuario@tienda.com"
                         class="w-full px-4 py-3 rounded-lg border border-default bg-white text-heading placeholder:text-body focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand">
                 </div>
 
                 <div>
                     <label for="password" class="block text-sm font-medium text-heading mb-2">Contraseña</label>
-                    <input id="password" type="password" placeholder="Ingresa tu contraseña"
+                    <input id="password" name="password" type="password" placeholder="usuario123"
                         class="w-full px-4 py-3 rounded-lg border border-default bg-white text-heading placeholder:text-body focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand">
                 </div>
 
@@ -108,6 +114,17 @@
                     Entrar
                 </button>
             </form>
+
+            <div class="mt-6 grid gap-3 text-sm text-body">
+                <div class="rounded-lg border border-default p-3">
+                    <p class="font-semibold text-heading">Usuario</p>
+                    <p>usuario@tienda.com / usuario123</p>
+                </div>
+                <div class="rounded-lg border border-default p-3">
+                    <p class="font-semibold text-heading">Administrador</p>
+                    <p>admin@tienda.com / admin123</p>
+                </div>
+            </div>
         </div>
     </div>
 

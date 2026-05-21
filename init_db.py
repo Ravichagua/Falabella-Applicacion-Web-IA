@@ -18,7 +18,7 @@ def init_database():
                 nombre="Camiseta Clásica de Algodón",
                 precio=79.99,
                 descripcion="Camiseta premium elaborada con 100% algodón de alta calidad. Perfecta para el día a día.",
-                imagen_path="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&h=400&fit=crop",
+                imagen_path="camiseta-clasica.webp",
                 categoria="Camisetas",
                 marca="Nike"
             ),
@@ -26,7 +26,7 @@ def init_database():
                 nombre="Pantalón Denim Azul",
                 precio=119.99,
                 descripcion="Pantalón de denim clásico con ajuste relajado. Combina comodidad y estilo en cualquier ocasión.",
-                imagen_path="https://images.unsplash.com/photo-1548126033-3080ca022206?w=400&h=400&fit=crop",
+                imagen_path="pantalon-denim.jpg",
                 categoria="Pantalones",
                 marca="Zara"
             ),
@@ -34,7 +34,7 @@ def init_database():
                 nombre="Vestido Elegante Negro",
                 precio=199.99,
                 descripcion="Vestido elegante perfecto para eventos especiales. Diseño sofisticado que realza tu figura.",
-                imagen_path="https://images.unsplash.com/photo-1503342394128-c104cbb9810d?w=400&h=400&fit=crop",
+                imagen_path="vestido-elegante.webp",
                 categoria="Vestidos",
                 marca="H&M"
             ),
@@ -42,7 +42,7 @@ def init_database():
                 nombre="Chaqueta Deportiva",
                 precio=349.99,
                 descripcion="Chaqueta de alta calidad ideal para actividades deportivas. Material resistente y transpirable.",
-                imagen_path="https://images.unsplash.com/photo-1551028719-00167b16ebc5?w=400&h=400&fit=crop",
+                imagen_path="chaqueta-deportiva.webp",
                 categoria="Chaquetas",
                 marca="Adidas"
             ),
@@ -50,7 +50,7 @@ def init_database():
                 nombre="Polo Básico Blanco",
                 precio=59.99,
                 descripcion="Polo clásico de algodón perfecto para uso casual o formal. Disponible en múltiples colores.",
-                imagen_path="https://images.unsplash.com/photo-1577992369052-f59d99b47a91?w=400&h=400&fit=crop",
+                imagen_path="polo-blanco.jpg",
                 categoria="Camisetas",
                 marca="Ralph Lauren"
             ),
@@ -58,7 +58,7 @@ def init_database():
                 nombre="Shorts de Lino",
                 precio=89.99,
                 descripcion="Shorts de lino cómodo y fresco para el verano. Perfectos para playa o actividades al aire libre.",
-                imagen_path="https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop",
+                imagen_path="shorts-lino.webp",
                 categoria="Pantalones",
                 marca="Uniqlo"
             ),
@@ -66,7 +66,7 @@ def init_database():
                 nombre="Falda Midi Floral",
                 precio=99.99,
                 descripcion="Falda midi con estampado floral ideal para looks casuales y elegantes. Tela de calidad premium.",
-                imagen_path="https://images.unsplash.com/photo-1606308790433-f47ddba9f9f8?w=400&h=400&fit=crop",
+                imagen_path="falda-mini.webp",
                 categoria="Faldas",
                 marca="Zara"
             ),
@@ -74,7 +74,7 @@ def init_database():
                 nombre="Sudadera Hoodie Gris",
                 precio=79.99,
                 descripcion="Sudadera cómoda con capucha, perfecta para días frescos. Tela suave y cálida.",
-                imagen_path="https://images.unsplash.com/photo-1556821552-5e41911c0e8d?w=400&h=400&fit=crop",
+                imagen_path="sudadera-hoodie.webp",
                 categoria="Sudaderas",
                 marca="Nike"
             ),
@@ -82,7 +82,7 @@ def init_database():
                 nombre="Blazer Ejecutivo Azul",
                 precio=289.99,
                 descripcion="Blazer profesional ideal para ambiente corporativo. Corte impecable y material de alta calidad.",
-                imagen_path="https://images.unsplash.com/photo-1539533057440-7bc282412ba2?w=400&h=400&fit=crop",
+                imagen_path="blazer-azul.jpg",
                 categoria="Chaquetas",
                 marca="Hugo Boss"
             ),
@@ -90,7 +90,7 @@ def init_database():
                 nombre="Leggings Deportivos",
                 precio=69.99,
                 descripcion="Leggings de alta compresión con tecnología secado rápido. Perfectos para ejercicio.",
-                imagen_path="https://images.unsplash.com/photo-1506215316815-2da0b1f0d545?w=400&h=400&fit=crop",
+                imagen_path="leggings-deportivos.webp",
                 categoria="Pantalones",
                 marca="Adidas"
             ),

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, redirect, url_for # type: ignore
+from flask import Flask, render_template, jsonify, redirect, url_for, request, session # type: ignore
 from dotenv import load_dotenv
 import os
 
@@ -6,6 +6,7 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
+app.secret_key = os.getenv("SECRET_KEY", "dev-secret-key")
 
 # Configuración de la base de datos (solo PostgreSQL)
 database_url = os.getenv("DATABASE_URL")
@@ -23,21 +24,59 @@ db.init_app(app)
 # Importar modelos
 from models import Producto
 
+USUARIOS = {
+    "usuario": {
+        "email": "usuario@tienda.com",
+        "password": "usuario123",
+        "redirect": "busqueda",
+    },
+    "admin": {
+        "email": "admin@tienda.com",
+        "password": "admin123",
+        "redirect": "dashboard",
+    },
+}
+
 @app.route("/")
 def inicio():
     return render_template("index.html")
 
-@app.route("/login")
+@app.route("/login", methods=["GET", "POST"])
 def login():
+    if request.method == "POST":
+        email = request.form.get("email", "").strip().lower()
+        password = request.form.get("password", "")
+
+        for rol, credenciales in USUARIOS.items():
+            if email == credenciales["email"] and password == credenciales["password"]:
+                session["usuario"] = email
+                session["rol"] = rol
+                return redirect(url_for(credenciales["redirect"]))
+
+        return render_template(
+            "login.html",
+            error="Credenciales inválidas. Intenta de nuevo."
+        )
+
     return render_template("login.html")
+
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for("login"))
 
 @app.route("/busqueda")
 def busqueda():
+    if session.get("rol") not in {"usuario", "admin"}:
+        return redirect(url_for("login"))
     productos = Producto.query.all()
     return render_template("busqueda.html", productos=productos)
 
 @app.route("/dashboard")
 def dashboard():
+    if session.get("rol") != "admin":
+        return redirect(url_for("login"))
     return render_template("dashboard.html")
 
 
