@@ -1,0 +1,259 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!--Navbar-->
+    <nav class="bg-neutral-primary w-full z-20 top-0 start-0 border-b border-default">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="index.html" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="logo.svg" class="h-7" alt="Flowbite Logo" />
+            </a>
+            <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-4">
+
+                <!-- Botón Usuario -->
+                <a href="login.html" lass="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <rect x="2" y="2" width="20" height="20" rx="6" stroke-width="1.5"></rect>
+                    <circle cx="12" cy="9" r="3" stroke-width="1.5"></circle>
+                    <path d="M6 20c1.5-2 4.5-3 6-3s4.5 1 6 3" stroke-width="1.5" stroke-linecap="round"
+                        stroke-linejoin="round"></path>
+                </svg>
+                </a>
+                
+
+
+                <!-- Botón Carrito -->
+                <a href="#"
+                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
+                    aria-label="Carrito">
+                    <svg class="w-16" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293a1 1 0 00.707 1.707H17" />
+                    </svg>
+                </a>
+
+            </div>
+            <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
+                <ul
+                    class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-default rounded-base bg-neutral-secondary-soft md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-neutral-primary">
+                    <li>
+                        <a href="#"
+                            class="block py-2 px-3 text-white bg-brand rounded md:bg-transparent md:text-fg-brand md:p-0"
+                            aria-current="page">Home</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Categorias</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Ofertas</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Marcas</a>
+                    </li>
+                    <li>
+                        <a href="busqueda.html"
+                            class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Buscar</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Detalle del Producto -->
+    <div class="min-h-screen py-8 px-4 md:py-16">
+        <div class="container mx-auto">
+            <!-- Breadcrumb -->
+            <div class="mb-8 flex flex-row items-center justify-between">
+                <div>
+                    <a href="index.html" class="text-body hover:text-brand">Inicio</a>
+                    <span class="text-body mx-2">/</span>
+                    <a href="busqueda.html" class="text-body hover:text-brand">Camisetas</a>
+                    <span class="text-body mx-2">/</span>
+                    <span class="text-heading font-medium">Camiseta Clásica de Algodón</span>
+                </div>
+
+
+                <div>
+                    <!-- Botón Corazón (Favoritos) -->
+                    <button id="favoriteBtn"
+                        class="w-12 h-12 border-2 border-default rounded-lg hover:border-brand text-heading hover:text-brand transition-colors flex items-center justify-center"
+                        onclick="toggleFavorite()">
+                        <svg id="heartIcon" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+
+                <!-- Galería de Imágenes -->
+                <div class="flex flex-col md:flex-row gap-4">
+                    <!-- Imágenes Miniatura -->
+                    <div class="flex md:flex-col gap-3 order-2 md:order-1">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=150&h=150&fit=crop"
+                            alt="Miniatura 1"
+                            class="w-20 h-20 rounded-lg cursor-pointer border-2 border-brand object-cover hover:border-brand transition-colors">
+                        <img src="https://images.unsplash.com/photo-1548126033-3080ca022206?w=150&h=150&fit=crop"
+                            alt="Miniatura 2"
+                            class="w-20 h-20 rounded-lg cursor-pointer border-2 border-gray-300 object-cover hover:border-brand transition-colors">
+                        <img src="https://images.unsplash.com/photo-1503342394128-c104cbb9810d?w=150&h=150&fit=crop"
+                            alt="Miniatura 3"
+                            class="w-20 h-20 rounded-lg cursor-pointer border-2 border-gray-300 object-cover hover:border-brand transition-colors">
+                        <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=150&h=150&fit=crop"
+                            alt="Miniatura 4"
+                            class="w-20 h-20 rounded-lg cursor-pointer border-2 border-gray-300 object-cover hover:border-brand transition-colors">
+                    </div>
+
+                    <!-- Imagen Principal -->
+                    <div class="relative overflow-hidden aspect-square w-full order-1 md:order-2">
+                        <img id="mainImage"
+                            src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800&h=800&fit=crop"
+                            alt="Camiseta Clásica de Algodón" class="w-full object-contain">
+                    </div>
+                </div>
+
+                <!-- Información del Producto -->
+                <div class="flex flex-col">
+                    <!-- Encabezado -->
+                    <div class="mb-4">
+                        <h1 class="text-3xl md:text-4xl font-bold text-heading mb-3">Camiseta Clásica de Algodón</h1>
+                    </div>
+
+                    <!-- Precio -->
+                    <div class="mb-6 pb-6 border-b border-default">
+                        <div class="flex items-baseline gap-3 mb-3">
+                            <span class="text-3xl font-bold text-brand">s/.80</span>
+                            <span class="text-2xl text-body line-through">s/.100</span>
+                            <span
+                                class="inline-block px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">Ahorra
+                                -20%</span>
+                        </div>
+                    </div>
+
+                    <!-- Descripción -->
+                    <div class="mb-6 pb-6 border-b border-default">
+                        <h3 class="font-semibold text-heading mb-3">Descripción</h3>
+                        <p class="text-body leading-relaxed">
+                            Camiseta premium elaborada con 100% algodón de alta calidad. Perfecta para el día a día,
+                            combina comodidad y estilo.
+                            Cuello redondo clásico, mangas cortas y un ajuste relajado que te hará lucir impecable.
+                            Disponible en múltiples colores
+                            para que encuentres el tuyo.
+                        </p>
+                    </div>
+
+                    <!-- Color -->
+                    <div class="mb-6 pb-6 border-b border-default">
+                        <h3 class="font-semibold text-heading mb-4">Color</h3>
+                        <div class="flex gap-4">
+                            <button class="relative group">
+                                <div
+                                    class="w-12 h-12 bg-white rounded-full border-2 border-gray-300 cursor-pointer hover:border-brand">
+                                </div>
+                                <span
+                                    class="absolute -bottom-6 left-0 text-xs text-body group-hover:block hidden">Blanco</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Talla -->
+                    <div class="mb-6 pb-6 border-b border-default">
+                        <h3 class="font-semibold text-heading mb-4">Selecciona tu Talla</h3>
+                        <div class="flex gap-3 flex-wrap">
+                            <button
+                                class="w-12 h-12 rounded-lg border-2 border-gray-300 font-semibold text-heading hover:border-brand hover:bg-blue-50 transition-colors">XS</button>
+                            <button
+                                class="w-12 h-12 rounded-lg border-2 border-gray-300 font-semibold text-heading hover:border-brand hover:bg-blue-50 transition-colors">S</button>
+                            <button
+                                class="w-12 h-12 rounded-lg border-2 border-brand bg-blue-50 font-semibold text-heading">M</button>
+                            <button
+                                class="w-12 h-12 rounded-lg border-2 border-gray-300 font-semibold text-heading hover:border-brand hover:bg-blue-50 transition-colors">L</button>
+                            <button
+                                class="w-12 h-12 rounded-lg border-2 border-gray-300 font-semibold text-heading hover:border-brand hover:bg-blue-50 transition-colors">XL</button>
+                            <button
+                                class="w-12 h-12 rounded-lg border-2 border-gray-300 font-semibold text-heading hover:border-brand hover:bg-blue-50 transition-colors">XXL</button>
+                        </div>
+                    </div>
+
+                    
+
+                    <!-- Cantidad y Botones -->
+                    <div class="mb-8">
+                        <div class="flex flex-col sm:flex-row justify-between">
+                            <!-- Cantidad -->
+                            <div class="flex items-center border border-default rounded-lg">
+                                <button class="px-4 py-3 text-heading hover:bg-gray-100 transition-colors">−</button>
+                                <input type="number" value="1" min="1"
+                                    class="w-16 text-center text-heading font-semibold border-0 focus:outline-none focus:ring-0">
+                                <button class="px-4 py-3 text-heading hover:bg-gray-100 transition-colors">+</button>
+                            </div>
+
+                            <!-- Botón Agregar al Carrito -->
+                            <button
+                                class="flex py-3 px-6 bg-black text-white font-semibold rounded-lg hover:bg-opacity-90 transition-all flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                                </svg>
+                                <span>Agregar al Carrito</span>
+                            </button>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Productos Relacionados -->
+            <div class="mt-16 pt-16 border-t border-default">
+                <h2 class="text-2xl md:text-3xl font-bold text-heading mb-8">Productos Relacionados</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleFavorite() {
+            const btn = document.getElementById('favoriteBtn');
+            const icon = document.getElementById('heartIcon');
+
+            btn.classList.toggle('bg-red-50');
+            btn.classList.toggle('border-red-500');
+            btn.classList.toggle('text-red-500');
+
+            icon.classList.toggle('fill-current');
+        }
+
+        // Cambiar imagen principal al hacer clic en miniaturas
+        document.querySelectorAll('.flex.gap-3 img').forEach(img => {
+            img.addEventListener('click', function () {
+                const mainImage = document.getElementById('mainImage');
+                mainImage.src = this.src.replace('w=150&h=150', 'w=800&h=900');
+
+                // Actualizar bordes
+                document.querySelectorAll('.flex.gap-3 img').forEach(i => i.classList.remove('border-brand'));
+                document.querySelectorAll('.flex.gap-3 img').forEach(i => i.classList.add('border-gray-300'));
+                this.classList.remove('border-gray-300');
+                this.classList.add('border-brand');
+            });
+        });
+    </script>
+</body>
+
+</html>
