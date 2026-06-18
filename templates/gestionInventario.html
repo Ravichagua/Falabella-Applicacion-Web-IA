@@ -112,7 +112,7 @@
                         </div>
                     {% endif %}
 
-                    <form method="POST" action="{{ url_for('gestionInventario') }}" class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+                    <form method="POST" action="{{ url_for('gestionInventario') }}" enctype="multipart/form-data" class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
                         <input type="hidden" name="producto_id" value="{{ producto_edicion.id if producto_edicion else '' }}">
 
                         <label class="flex flex-col gap-2 text-sm font-medium text-gray-700">
@@ -131,8 +131,13 @@
                         </label>
 
                         <label class="flex flex-col gap-2 text-sm font-medium text-gray-700 xl:col-span-2">
-                            Imagen
-                            <input type="text" name="imagen_path" required value="{{ producto_edicion.imagen_path if producto_edicion else '' }}" placeholder="nombre-archivo.jpg" class="rounded-lg border border-gray-300 px-3 py-2 focus:border-gray-900 focus:outline-none">
+                            Imagen (subir archivo)
+                            <input type="file" name="imagen_file" accept="image/*" class="rounded-lg border border-gray-300 px-3 py-2 focus:border-gray-900 focus:outline-none">
+                            <!-- Campo para mostrar/almacenar el nombre del archivo (se completa al subir o al editar) -->
+                            <input type="text" name="imagen_path" value="{{ producto_edicion.imagen_path if producto_edicion else '' }}" placeholder="nombre-archivo.jpg" class="rounded-lg border border-gray-300 px-3 py-2 focus:border-gray-900 focus:outline-none mt-2">
+                            {% if producto_edicion and producto_edicion.imagen_path %}
+                                <img src="{{ url_for('static', filename='imagenes/productos/' + producto_edicion.imagen_path) }}" class="h-20 w-20 object-contain mt-2 bg-gray-100 p-1 rounded-lg" alt="Imagen actual">
+                            {% endif %}
                         </label>
 
                         <label class="flex flex-col gap-2 text-sm font-medium text-gray-700">
@@ -257,6 +262,17 @@
         toggleButton.addEventListener('click', function () {
             formPanel.classList.toggle('hidden');
             toggleButton.textContent = formPanel.classList.contains('hidden') ? 'Agregar producto' : 'Ocultar formulario';
+        });
+    })();
+
+    // Sincroniza el nombre del archivo seleccionado con el campo imagen_path
+    (function(){
+        const fileInput = document.querySelector('input[name="imagen_file"]');
+        const pathInput = document.querySelector('input[name="imagen_path"]');
+        if (!fileInput || !pathInput) return;
+        fileInput.addEventListener('change', function(){
+            const f = fileInput.files[0];
+            if (f) pathInput.value = f.name;
         });
     })();
 </script>

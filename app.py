@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify, redirect, url_for, request, session # type: ignore
 from dotenv import load_dotenv
 import os
+from werkzeug.utils import secure_filename
 
 # Cargar variables de entorno desde .env
 load_dotenv()
@@ -19,6 +20,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = database_url
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 from database import db
 db.init_app(app)
+
+# Carpeta donde se guardan las imágenes de productos
+PRODUCTOS_FOLDER = os.path.join(app.root_path, 'static', 'imagenes', 'productos')
+os.makedirs(PRODUCTOS_FOLDER, exist_ok=True)
 
 # Importar modelos
 from models import Deseado, Producto, Usuario
@@ -178,7 +183,18 @@ def eliminar_deseado(deseado_id):
 def dashboard():
     if session.get("rol") != "admin":
         return redirect(url_for("login"))
-    return render_template("dashboard.html")
+    # Contadores para el dashboard
+    try:
+        productos_count = Producto.query.count()
+    except Exception:
+        productos_count = 0
+
+    try:
+        deseados_count = Deseado.query.count()
+    except Exception:
+        deseados_count = 0
+
+    return render_template("dashboard.html", productos_count=productos_count, deseados_count=deseados_count)
 
 @app.route("/dashboard/inventario", methods=["GET", "POST"])
 def gestionInventario():
@@ -191,7 +207,17 @@ def gestionInventario():
         producto_id = request.form.get("producto_id", type=int)
         nombre = request.form.get("nombre", "").strip()
         descripcion = request.form.get("descripcion", "").strip()
+        # Manejo de archivo subido (opcional) y nombre de imagen
+        imagen_file = request.files.get('imagen_file')
         imagen_path = request.form.get("imagen_path", "").strip()
+
+        if imagen_file and imagen_file.filename:
+            filename = secure_filename(imagen_file.filename)
+            try:
+                imagen_file.save(os.path.join(PRODUCTOS_FOLDER, filename))
+                imagen_path = filename
+            except Exception:
+                error = "No se pudo guardar la imagen subida."
         categoria = request.form.get("categoria", "").strip()
         marca = request.form.get("marca", "").strip()
 
@@ -201,8 +227,10 @@ def gestionInventario():
         except ValueError:
             error = "Precio y stock deben ser números válidos."
         else:
-            if not all([nombre, descripcion, imagen_path, categoria, marca]):
+            if not all([nombre, descripcion, categoria, marca]):
                 error = "Completa todos los campos del producto."
+            elif not imagen_path:
+                error = "Agrega una imagen para el producto."
             else:
                 try:
                     if producto_id:
