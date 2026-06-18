@@ -20,61 +20,48 @@
             <div class="flex flex-row mb-8 gap-6 items-center">
 
                 <img src="{{ url_for('static', filename='imagenes/icon.png') }}" class="h-16" alt="icono">
-
-                <span class="text-2xl font-bold text-gray-900 ">Dashboard</span>
+                
+                    <span class="text-2xl font-bold text-gray-900 ">Dashboard</span>
             </div>
 
             <nav class="space-y-3">
-                <a href="{{ url_for('dashboard') }}"
-                    class="flex items-center gap-3 px-4 py-5 rounded-lg text-gray-700 font-medium hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                <a href="{{ url_for('dashboard') }}" class="flex items-center gap-3 px-4 py-5 rounded-lg text-gray-700 font-medium hover:bg-gray-100 hover:text-gray-900 transition-colors">
                     <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M3 10.5L12 3l9 7.5M5 10v10h5v-6h4v6h5V10" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10.5L12 3l9 7.5M5 10v10h5v-6h4v6h5V10" />
                     </svg>
                     <span>Resumen</span>
                 </a>
-                <a href="{{ url_for('dashboard') }}#usuarios"
-                    class="text-lg flex items-center gap-3 px-4 py-5 rounded-lg text-gray-700 font-medium hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                <a href="{{ url_for('gestionUsuario') }}" class="text-lg flex items-center gap-3 px-4 py-5 rounded-lg text-gray-700 font-medium hover:bg-gray-100 hover:text-gray-900 transition-colors">
                     <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M17 20h5v-2a4 4 0 00-4-4h-1m-4 6H6a4 4 0 01-4-4v-2a4 4 0 014-4h6m0 0a4 4 0 100-8 4 4 0 000 8zm6 0a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-4-4h-1m-4 6H6a4 4 0 01-4-4v-2a4 4 0 014-4h6m0 0a4 4 0 100-8 4 4 0 000 8zm6 0a3 3 0 11-6 0 3 3 0 016 0z" />
                     </svg>
                     <span>Gestion usuarios</span>
                 </a>
-                <a href="{{ url_for('dashboard') }}#inventario"
-                    class="flex items-center gap-3 px-4 py-5 rounded-lg text-gray-700 font-medium hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                <a href="{{ url_for('gestionInventario') }}" class="flex items-center gap-3 px-4 py-5 rounded-lg text-gray-700 font-medium hover:bg-gray-100 hover:text-gray-900 transition-colors">
                     <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M20 13V8a2 2 0 00-2-2h-6l-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2h5m7-9h3m-3 4h3m-3 4h3M9 13l2 2 4-4" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V8a2 2 0 00-2-2h-6l-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2h5m7-9h3m-3 4h3m-3 4h3M9 13l2 2 4-4" />
                     </svg>
                     <span>Gestion inventario</span>
                 </a>
-                <a href="{{ url_for('dashboard') }}#reportes"
-                    class="text-lg flex items-center gap-3 px-4 py-5 rounded-lg text-gray-700 font-medium hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                <a href="{{ url_for('dashboard') }}#reportes" class="text-lg flex items-center gap-3 px-4 py-5 rounded-lg text-gray-700 font-medium hover:bg-gray-100 hover:text-gray-900 transition-colors">
                     <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 17v-2m3 2v-4m3 4V8m2 13H7a2 2 0 01-2-2V5a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4V8m2 13H7a2 2 0 01-2-2V5a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2z" />
                     </svg>
                     <span>Reportes</span>
                 </a>
-                <a href="{{ url_for('dashboard') }}#log"
-                    class="text-lg flex items-center gap-3 px-4 py-5 rounded-lg text-gray-700 font-medium hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                <a href="{{ url_for('dashboard') }}#log" class="text-lg flex items-center gap-3 px-4 py-5 rounded-lg text-gray-700 font-medium hover:bg-gray-100 hover:text-gray-900 transition-colors">
                     <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M9 3v2m6-2v2M4 7h16M5 11h14M6 15h12M8 19h8" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M4 7h16M5 11h14M6 15h12M8 19h8" />
                     </svg>
                     <span>Log de cambios</span>
                 </a>
             </nav>
 
             <div class="mt-auto pt-6 relative">
-                <button id="userProfile" class="flex items-center gap-3 py-3 w-full text-left focus:outline-none"
-                    aria-haspopup="true" aria-expanded="false">
-                    <div
-                        class="w-11 h-11 rounded-full flex items-center justify-center shrink-0 bg-gray-900 text-white">
+                <button id="userProfile" class="flex items-center gap-3 py-3 w-full text-left focus:outline-none" aria-haspopup="true" aria-expanded="false">
+                    <div class="w-11 h-11 rounded-full flex items-center justify-center shrink-0 bg-gray-900 text-white">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M20 21a8 8 0 10-16 0m16 0a2 2 0 01-2 2H6a2 2 0 01-2-2m16 0v-2a4 4 0 00-4-4h-1m-6 6v-2a4 4 0 014-4h1m-6 6h6m2-10a4 4 0 11-8 0 4 4 0 018 0z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 21a8 8 0 10-16 0m16 0a2 2 0 01-2 2H6a2 2 0 01-2-2m16 0v-2a4 4 0 00-4-4h-1m-6 6v-2a4 4 0 014-4h1m-6 6h6m2-10a4 4 0 11-8 0 4 4 0 018 0z" />
                         </svg>
                     </div>
                     <div class="min-w-0">
@@ -84,15 +71,13 @@
                 </button>
 
                 <!-- Menú desplegable -->
-                <div id="userMenu"
-                    class="hidden absolute left-6 bottom-20 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                <div id="userMenu" class="hidden absolute left-6 bottom-20 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
                     <ul class="py-2">
                         <li>
                             <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Perfil</a>
                         </li>
                         <li>
-                            <a href="{{ url_for('inicio') }}" id="logoutBtn"
-                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cerrar sesión</a>
+                            <a href="{{ url_for('inicio') }}" id="logoutBtn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cerrar sesión</a>
                         </li>
                     </ul>
                 </div>
