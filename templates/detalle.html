@@ -17,6 +17,16 @@
             </a>
             <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse gap-4">
 
+                <!-- Botón Deseados -->
+                <a href="{{ url_for('deseados') }}"
+                    class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base hover:bg-neutral-secondary-soft hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-neutral-tertiary"
+                    aria-label="Deseados">
+                    <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    </svg>
+                </a>
+
                 <!-- Botón Usuario -->
                 <a href="{{ url_for('login') }}" lass="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-body rounded-base hover:bg-neutral-secondary-soft hover:text-heading focus:outline-none focus:ring-2 focus:ring-neutral-tertiary">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,17 +93,20 @@
                 </div>
 
 
-                <div>
-                    <!-- Botón Corazón (Favoritos) -->
-                    <button id="favoriteBtn"
-                        class="w-12 h-12 border-2 border-default rounded-lg hover:border-brand text-heading hover:text-brand transition-colors flex items-center justify-center"
-                        onclick="toggleFavorite()">
-                        <svg id="heartIcon" class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
-                    </button>
-                </div>
+                    <div>
+                        {% if session.get('rol') == 'usuario' %}
+                        <form method="post" action="{{ url_for('agregar_deseado', producto_id=producto.id) }}">
+                            <button id="favoriteBtn"
+                                class="w-12 h-12 border-2 rounded-lg transition-colors flex items-center justify-center {% if es_deseado %}border-red-500 text-red-500 bg-red-50{% else %}border-default hover:border-brand text-heading hover:text-brand{% endif %}"
+                                type="submit">
+                                <svg id="heartIcon" class="w-8 h-8 {% if es_deseado %}fill-current{% endif %}" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                                </svg>
+                            </button>
+                        </form>
+                        {% endif %}
+                    </div>
             </div>
 
 
@@ -197,7 +210,7 @@
 
                             <!-- Botón Agregar al Carrito -->
                             <button
-                                class="flex py-3 px-6 bg-black text-white font-semibold rounded-lg hover:bg-opacity-90 transition-all flex items-center justify-center gap-2">
+                                class="flex py-3 px-6 bg-black text-white font-semibold rounded-lg hover:bg-opacity-90 transition-all items-center justify-center gap-2">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -239,17 +252,6 @@
     </div>
 
     <script>
-        function toggleFavorite() {
-            const btn = document.getElementById('favoriteBtn');
-            const icon = document.getElementById('heartIcon');
-
-            btn.classList.toggle('bg-red-50');
-            btn.classList.toggle('border-red-500');
-            btn.classList.toggle('text-red-500');
-
-            icon.classList.toggle('fill-current');
-        }
-
         // Cambiar imagen principal al hacer clic en miniaturas
         document.querySelectorAll('.flex.gap-3 img').forEach(img => {
             img.addEventListener('click', function () {

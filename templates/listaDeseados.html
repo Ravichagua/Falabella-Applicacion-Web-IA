@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}">
+    <title>Busqueda</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}"> -->
+    <!-- Flowbite JS still required for some components; offline include optional via static/js/flowbite.js if installed -->
 </head>
-
 <body>
-
     <!--Navbar-->
-    <nav class="bg-neutral-primary w-full z-20 top-0 start-0 border-b border-default">
+    <nav class="bg-neutral-primary w-full z-20 top-0 start-0 ">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
             <a href="{{ url_for('inicio') }}" class="flex items-center space-x-3 rtl:space-x-reverse">
                 <img src="{{ url_for('static', filename='logo.svg') }}" class="h-7" alt="Flowbite Logo" />
@@ -61,15 +61,11 @@
                     </li>
                     <li>
                         <a href="#"
-                            class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Categorias</a>
-                    </li>
-                    <li>
-                        <a href="#"
                             class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Ofertas</a>
                     </li>
                     <li>
                         <a href="#"
-                            class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Marcas</a>
+                            class="block py-2 px-3 text-heading rounded hover:bg-neutral-tertiary md:hover:bg-transparent md:border-0 md:hover:text-fg-brand md:p-0 md:dark:hover:bg-transparent">Deseados</a>
                     </li>
                     <li>
                         <a href="{{ url_for('busqueda') }}"
@@ -79,76 +75,53 @@
             </div>
         </div>
     </nav>
-    <!--Banner-->
-    <div class="relative h-32 overflow-hidden rounded-base md:h-96 mb-8">
-        <img src="{{ url_for('static', filename='imagenes/slider1.png') }}" alt="banner">
-    </div>
-    <!--Categorias-->
-    <div class="flex justify-center">
-        <span class="text-2xl">Categorias</span>
-    </div>
-    <!--Categorias cartas-->
-    <div class="container mx-auto my-16">
-
-        <ul class="flex flex-row justify-center gap-4">
-
-            <li>
-                <a href=""><img class="w-80" src="{{ url_for('static', filename='imagenes/Catpage-Calzado.png') }}" alt="" class="h-full"></a>
-            </li>
-            <li>
-                <a href=""><img class="w-80" src="{{ url_for('static', filename='imagenes/Catpage-Moda-Hombre.png') }}" alt="" class="h-full"></a>
-            </li>
-            <li>
-                <a href=""><img class="w-80" src="{{ url_for('static', filename='imagenes/Catpage-Accesorios.png') }}" alt="" class="h-full"></a>
-            </li>
-            <li>
-                <a href=""><img class="w-80" src="{{ url_for('static', filename='imagenes/Catpage-Moda-Mujer.png') }}" alt="" class="h-full"></a>
-            </li>
-
-        </ul>
-
-    </div>
-
-    <br>
-    <br>
-    <br>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white mt-16">
-        <div class="container mx-auto py-12 grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
-            <div>
-                <h4 class="font-bold mb-3">Saga Falabella</h4>
-                <p class="text-sm text-gray-300">Tienda de ropa online con envío rápido y devoluciones gratuitas.</p>
+    
+    <div class="min-h-screen bg-gray-50 py-10 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <div class="flex flex-col gap-2 mb-8">
+                <h1 class="text-xl font-bold text-heading">Lista de deseados</h1>
+                <p class="text-body">Productos guardados por el usuario conectado.</p>
             </div>
 
-            <div>
-                <h4 class="font-bold mb-3">Enlaces</h4>
-                <ul class="text-sm text-gray-300 space-y-2">
-                    <li><a href="{{ url_for('inicio') }}" class="hover:underline">Inicio</a></li>
-                    <li><a href="{{ url_for('busqueda') }}" class="hover:underline">Productos</a></li>
-                    <li><a href="{{ url_for('login') }}" class="hover:underline">Mi cuenta</a></li>
-                </ul>
-            </div>
-
-            <div>
-                <h4 class="font-bold mb-3">Suscríbete</h4>
-                <form class="flex gap-2" onsubmit="event.preventDefault(); alert('Gracias por suscribirte');">
-                    <input type="email" placeholder="Tu correo" required class="px-3 py-2 rounded-lg text-gray-900 w-full">
-                    <button class="bg-brand text-white px-4 py-2 rounded-lg">Enviar</button>
-                </form>
-                <div class="flex gap-3 mt-4">
-                    <a href="#" class="text-gray-300 hover:text-white">Facebook</a>
-                    <a href="#" class="text-gray-300 hover:text-white">Instagram</a>
-                    <a href="#" class="text-gray-300 hover:text-white">Twitter</a>
+            <div id="wishlist-grid" class="flex flex-col max-w-4xl">
+                {% for deseado in lista_deseados %}
+                <div class="bg-white shadow-sm hover:shadow-md transition-shadow border border-gray-200 flex items-center gap-5 p-5">
+                    <!-- Imagen del Producto -->
+                    <div class="bg-gray-100 overflow-hidden rounded-lg flex-shrink-0">
+                        <img
+                            src="{{ url_for('static', filename='imagenes/productos/' + deseado.producto.imagen_path) }}"
+                            alt="{{ deseado.producto.nombre }}"
+                            class="w-32 h-32 object-cover hover:scale-105 transition-transform duration-200"
+                        >
+                    </div>
+                    
+                    <!-- Información del Producto -->
+                    <div class="flex-1 min-w-0">
+                        <h2 class="text-base font-semibold text-heading mb-1 truncate">{{ deseado.producto.nombre }}</h2>
+                        <p class="text-sm text-body mb-2">{{ deseado.producto.marca }}</p>
+                        <p class="text-xl font-bold text-brand">S/.{{ '%.2f'|format(deseado.producto.precio) }}</p>
+                    </div>
+                    
+                    <!-- Botones de Acción -->
+                    <div class="flex flex-col gap-2 flex-shrink-0">
+                        
+                        <form method="post" action="{{ url_for('eliminar_deseado', deseado_id=deseado.id) }}">
+                            <button class="w-full px-4 py-2 bg-red-50 text-red-600 rounded-lg font-medium hover:bg-red-100 transition-colors border border-red-200">
+                                Quitar
+                            </button>
+                        </form>
+                        <button class="w-full px-4 py-2 rounded-lg font-medium transition-colors border">
+                            Agregar al carrito
+                        </button>
+                    </div>
                 </div>
+                {% else %}
+                <div class="col-span-full bg-white rounded-lg shadow-sm p-10 text-center text-body">
+                    No tienes productos en tu lista de deseados.
+                </div>
+                {% endfor %}
             </div>
         </div>
-        <div class="border-t border-gray-800 text-center py-4 text-sm text-gray-400">© 2026 Saga Falabella. Todos los derechos reservados.</div>
-    </footer>
-
-
-    <!-- <script src="{{ url_for('static', filename='js/flowbite.js') }}"></script> -->
-
+    </div>
 </body>
-
 </html>

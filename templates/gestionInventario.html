@@ -85,7 +85,13 @@
                     <p class="text-gray-500 mt-1">Gestiona el alta, edición y eliminación de productos.</p>
                 </div>
 
-                <section class="bg-white border border-gray-200 rounded-2xl shadow-sm p-6">
+                <div class="flex items-center justify-end">
+                    <button id="toggleProductoForm" type="button" class="rounded-lg bg-white border p-6 text-sm font-semibold hover:bg-gray-800">
+                        {% if producto_edicion or error %}Ocultar formulario{% else %}Agregar producto{% endif %}
+                    </button>
+                </div>
+
+                <section id="productoFormPanel" class="bg-white border border-gray-200 rounded-2xl shadow-sm p-6 {% if not producto_edicion and not error %}hidden{% endif %}">
                     <div class="flex items-center justify-between gap-4 mb-6">
                         <div>
                             <h2 class="text-xl font-semibold text-gray-900">
@@ -145,7 +151,7 @@
                         </label>
 
                         <div class="md:col-span-2 xl:col-span-3 flex justify-end">
-                            <button type="submit" class="rounded-lg bg-gray-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-gray-800">
+                            <button type="submit" class="rounded-lg bg-gray-900 px-3 py-3 text-sm font-semibold text-white hover:bg-gray-800">
                                 {% if producto_edicion %}Actualizar producto{% else %}Guardar producto{% endif %}
                             </button>
                         </div>
@@ -238,6 +244,19 @@
                 menu.classList.add('hidden');
                 btn.setAttribute('aria-expanded', 'false');
             }
+        });
+    })();
+
+    // Toggle product form panel
+    (function () {
+        const toggleButton = document.getElementById('toggleProductoForm');
+        const formPanel = document.getElementById('productoFormPanel');
+
+        if (!toggleButton || !formPanel) return;
+
+        toggleButton.addEventListener('click', function () {
+            formPanel.classList.toggle('hidden');
+            toggleButton.textContent = formPanel.classList.contains('hidden') ? 'Agregar producto' : 'Ocultar formulario';
         });
     })();
 </script>

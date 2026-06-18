@@ -1,6 +1,6 @@
 from app import app
 from database import db
-from models import Producto, Usuario
+from models import Deseado, Producto, Usuario
 
 from werkzeug.security import generate_password_hash
 

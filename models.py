@@ -34,3 +34,21 @@ class Usuario(db.Model):
 
     def __repr__(self):
         return f'<Usuario {self.email} ({self.rol})>'
+
+
+class Deseado(db.Model):
+    __tablename__ = 'deseados'
+
+    id = db.Column(db.Integer, primary_key=True)
+    usuario_id = db.Column(db.Integer, db.ForeignKey('usuarios.id'), nullable=False)
+    producto_id = db.Column(db.Integer, db.ForeignKey('productos.id'), nullable=False)
+
+    usuario = db.relationship('Usuario', backref=db.backref('deseados', lazy=True, cascade='all, delete-orphan'))
+    producto = db.relationship('Producto', backref=db.backref('deseados', lazy=True, cascade='all, delete-orphan'))
+
+    __table_args__ = (
+        db.UniqueConstraint('usuario_id', 'producto_id', name='uq_deseados_usuario_producto'),
+    )
+
+    def __repr__(self):
+        return f'<Deseado usuario={self.usuario_id} producto={self.producto_id}>'

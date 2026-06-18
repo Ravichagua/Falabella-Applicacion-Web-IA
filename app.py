@@ -21,7 +21,7 @@ from database import db
 db.init_app(app)
 
 # Importar modelos
-from models import Producto, Usuario
+from models import Deseado, Producto, Usuario
 
 # Iniciar base de datos (el módulo contiene la función `init_database`)
 import init_db
@@ -40,6 +40,7 @@ def login():
 
         usuario = Usuario.query.filter_by(email=email).first()
         if usuario and usuario.check_password(password):
+            session["usuario_id"] = usuario.id
             session["usuario"] = usuario.email
             session["rol"] = usuario.rol
             if usuario.rol == "admin":
@@ -59,12 +60,59 @@ def logout():
     session.clear()
     return redirect(url_for("login"))
 
+
+def _usuario_autenticado():
+    return session.get("rol") in {"usuario", "admin"} and session.get("usuario_id") is not None
+
 @app.route("/busqueda")
 def busqueda():
     if session.get("rol") not in {"usuario", "admin"}:
         return redirect(url_for("login"))
     productos = Producto.query.all()
     return render_template("busqueda.html", productos=productos)
+
+@app.route("/deseados")
+def deseados():
+    if session.get("rol") != "usuario" or session.get("usuario_id") is None:
+        return redirect(url_for("login"))
+
+    lista_deseados = (
+        Deseado.query
+        .filter_by(usuario_id=session["usuario_id"])
+        .join(Producto)
+        .order_by(Deseado.id.desc())
+        .all()
+    )
+    return render_template("listaDeseados.html", lista_deseados=lista_deseados)
+
+
+@app.route("/deseados/agregar/<int:producto_id>", methods=["POST"])
+def agregar_deseado(producto_id):
+    if session.get("rol") != "usuario" or session.get("usuario_id") is None:
+        return redirect(url_for("login"))
+
+    producto = Producto.query.get_or_404(producto_id)
+    deseado_existente = Deseado.query.filter_by(
+        usuario_id=session["usuario_id"],
+        producto_id=producto.id,
+    ).first()
+
+    if deseado_existente is None:
+        db.session.add(Deseado(usuario_id=session["usuario_id"], producto_id=producto.id))
+        db.session.commit()
+
+    return redirect(request.referrer or url_for("deseados"))
+
+
+@app.route("/deseados/<int:deseado_id>/eliminar", methods=["POST"])
+def eliminar_deseado(deseado_id):
+    if session.get("rol") != "usuario" or session.get("usuario_id") is None:
+        return redirect(url_for("login"))
+
+    deseado = Deseado.query.filter_by(id=deseado_id, usuario_id=session["usuario_id"]).first_or_404()
+    db.session.delete(deseado)
+    db.session.commit()
+    return redirect(url_for("deseados"))
 
 @app.route("/dashboard")
 def dashboard():
@@ -229,13 +277,20 @@ def detalle_default():
 @app.route("/detalle/<int:producto_id>")
 def detalle(producto_id):
     producto = Producto.query.get_or_404(producto_id)
+    es_deseado = False
+    if session.get("usuario_id") is not None:
+        es_deseado = Deseado.query.filter_by(
+            usuario_id=session["usuario_id"],
+            producto_id=producto.id,
+        ).first() is not None
+
     relacionados = (
         Producto.query
         .filter(Producto.id != producto.id)
         .limit(4)
         .all()
     )
-    return render_template("detalle.html", producto=producto, relacionados=relacionados)
+    return render_template("detalle.html", producto=producto, relacionados=relacionados, es_deseado=es_deseado)
 
 @app.route("/api/productos")
 def api_productos():
