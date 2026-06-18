@@ -68,8 +68,68 @@ def _usuario_autenticado():
 def busqueda():
     if session.get("rol") not in {"usuario", "admin"}:
         return redirect(url_for("login"))
-    productos = Producto.query.all()
-    return render_template("busqueda.html", productos=productos)
+
+    termino_busqueda = request.args.get("q", "").strip()
+    precio_max_param = request.args.get("precio_max", "").strip()
+    categorias_seleccionadas = request.args.getlist("categoria")
+    marcas_seleccionadas = request.args.getlist("marca")
+    precio_max = 1000
+
+    if precio_max_param:
+        try:
+            precio_max = int(precio_max_param)
+        except ValueError:
+            precio_max = 1000
+
+    # Limita el valor para mantenerlo dentro del rango del slider.
+    precio_max = max(10, min(precio_max, 1000))
+
+    consulta_productos = Producto.query
+
+    # La busqueda solo considera el nombre del producto.
+    if termino_busqueda:
+        consulta_productos = consulta_productos.filter(
+            Producto.nombre.ilike(f"%{termino_busqueda}%")
+        )
+
+    if categorias_seleccionadas:
+        consulta_productos = consulta_productos.filter(
+            Producto.categoria.in_(categorias_seleccionadas)
+        )
+
+    if marcas_seleccionadas:
+        consulta_productos = consulta_productos.filter(
+            Producto.marca.in_(marcas_seleccionadas)
+        )
+
+    consulta_productos = consulta_productos.filter(Producto.precio <= precio_max)
+
+    productos = consulta_productos.all()
+    categorias_disponibles = [
+        categoria
+        for (categoria,) in db.session.query(Producto.categoria)
+        .distinct()
+        .order_by(Producto.categoria.asc())
+        .all()
+    ]
+    marcas_disponibles = [
+        marca
+        for (marca,) in db.session.query(Producto.marca)
+        .distinct()
+        .order_by(Producto.marca.asc())
+        .all()
+    ]
+
+    return render_template(
+        "busqueda.html",
+        productos=productos,
+        termino_busqueda=termino_busqueda,
+        precio_max=precio_max,
+        categorias_disponibles=categorias_disponibles,
+        marcas_disponibles=marcas_disponibles,
+        categorias_seleccionadas=categorias_seleccionadas,
+        marcas_seleccionadas=marcas_seleccionadas,
+    )
 
 @app.route("/deseados")
 def deseados():
