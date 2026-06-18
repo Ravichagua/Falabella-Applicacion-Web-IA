@@ -1,0 +1,244 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}">
+</head>
+
+<body>
+    <div class="min-h-screen bg-gray-100 flex">
+        <aside class="w-96 bg-white border-r border-gray-200 p-6 flex flex-col">
+            
+            <div class="flex flex-row mb-8 gap-6 items-center">
+
+                <img src="{{ url_for('static', filename='imagenes/icon.png') }}" class="h-16" alt="icono">
+                
+                    <span class="text-2xl font-bold text-gray-900 ">Dashboard</span>
+            </div>
+
+            <nav class="space-y-3">
+                <a href="{{ url_for('dashboard') }}" class="flex items-center gap-3 px-4 py-5 rounded-lg text-gray-700 font-medium hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10.5L12 3l9 7.5M5 10v10h5v-6h4v6h5V10" />
+                    </svg>
+                    <span>Resumen</span>
+                </a>
+                <a href="{{ url_for('dashboard') }}#usuarios" class="text-lg flex items-center gap-3 px-4 py-5 rounded-lg text-gray-700 font-medium hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-4-4h-1m-4 6H6a4 4 0 01-4-4v-2a4 4 0 014-4h6m0 0a4 4 0 100-8 4 4 0 000 8zm6 0a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    <span>Gestion usuarios</span>
+                </a>
+                <a href="{{ url_for('dashboard') }}#inventario" class="flex items-center gap-3 px-4 py-5 rounded-lg text-gray-700 font-medium hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V8a2 2 0 00-2-2h-6l-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2h5m7-9h3m-3 4h3m-3 4h3M9 13l2 2 4-4" />
+                    </svg>
+                    <span>Gestion inventario</span>
+                </a>
+                <a href="{{ url_for('dashboard') }}#reportes" class="text-lg flex items-center gap-3 px-4 py-5 rounded-lg text-gray-700 font-medium hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4V8m2 13H7a2 2 0 01-2-2V5a2 2 0 012-2h6l6 6v9a2 2 0 01-2 2z" />
+                    </svg>
+                    <span>Reportes</span>
+                </a>
+                <a href="{{ url_for('dashboard') }}#log" class="text-lg flex items-center gap-3 px-4 py-5 rounded-lg text-gray-700 font-medium hover:bg-gray-100 hover:text-gray-900 transition-colors">
+                    <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M4 7h16M5 11h14M6 15h12M8 19h8" />
+                    </svg>
+                    <span>Log de cambios</span>
+                </a>
+            </nav>
+
+            <div class="mt-auto pt-6 relative">
+                <button id="userProfile" class="flex items-center gap-3 py-3 w-full text-left focus:outline-none" aria-haspopup="true" aria-expanded="false">
+                    <div class="w-11 h-11 rounded-full flex items-center justify-center shrink-0 bg-gray-900 text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 21a8 8 0 10-16 0m16 0a2 2 0 01-2 2H6a2 2 0 01-2-2m16 0v-2a4 4 0 00-4-4h-1m-6 6v-2a4 4 0 014-4h1m-6 6h6m2-10a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
+                    </div>
+                    <div class="min-w-0">
+                        <p class="text-sm font-semibold text-gray-900 truncate">Usuario logeado</p>
+                        <p class="text-xs text-gray-500 truncate">admin@tienda.com</p>
+                    </div>
+                </button>
+
+                <!-- Menú desplegable -->
+                <div id="userMenu" class="hidden absolute left-6 bottom-20 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-50">
+                    <ul class="py-2">
+                        <li>
+                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Perfil</a>
+                        </li>
+                        <li>
+                            <a href="{{ url_for('inicio') }}" id="logoutBtn" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Cerrar sesión</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </aside>
+
+        <main class="flex-1 p-8 bg-gray-50">
+            <div class="space-y-8">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Gestión Inventario</h1>
+                    <p class="text-gray-500 mt-1">Gestiona el alta, edición y eliminación de productos.</p>
+                </div>
+
+                <section class="bg-white border border-gray-200 rounded-2xl shadow-sm p-6">
+                    <div class="flex items-center justify-between gap-4 mb-6">
+                        <div>
+                            <h2 class="text-xl font-semibold text-gray-900">
+                                {% if producto_edicion %}Editar producto{% else %}Nuevo producto{% endif %}
+                            </h2>
+                            <p class="text-sm text-gray-500">Completa los datos para guardar el producto en inventario.</p>
+                        </div>
+                        {% if producto_edicion %}
+                            <a href="{{ url_for('gestionInventario') }}" class="text-sm font-medium text-gray-600 hover:text-gray-900">
+                                Cancelar edición
+                            </a>
+                        {% endif %}
+                    </div>
+
+                    {% if error %}
+                        <div class="mb-6 rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
+                            {{ error }}
+                        </div>
+                    {% endif %}
+
+                    <form method="POST" action="{{ url_for('gestionInventario') }}" class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+                        <input type="hidden" name="producto_id" value="{{ producto_edicion.id if producto_edicion else '' }}">
+
+                        <label class="flex flex-col gap-2 text-sm font-medium text-gray-700">
+                            Nombre
+                            <input type="text" name="nombre" required value="{{ producto_edicion.nombre if producto_edicion else '' }}" class="rounded-lg border border-gray-300 px-3 py-2 focus:border-gray-900 focus:outline-none">
+                        </label>
+
+                        <label class="flex flex-col gap-2 text-sm font-medium text-gray-700">
+                            Precio
+                            <input type="number" name="precio" step="0.01" min="0" required value="{{ producto_edicion.precio if producto_edicion else '' }}" class="rounded-lg border border-gray-300 px-3 py-2 focus:border-gray-900 focus:outline-none">
+                        </label>
+
+                        <label class="flex flex-col gap-2 text-sm font-medium text-gray-700">
+                            Stock
+                            <input type="number" name="stock" min="0" required value="{{ producto_edicion.stock if producto_edicion else '' }}" class="rounded-lg border border-gray-300 px-3 py-2 focus:border-gray-900 focus:outline-none">
+                        </label>
+
+                        <label class="flex flex-col gap-2 text-sm font-medium text-gray-700 xl:col-span-2">
+                            Imagen
+                            <input type="text" name="imagen_path" required value="{{ producto_edicion.imagen_path if producto_edicion else '' }}" placeholder="nombre-archivo.jpg" class="rounded-lg border border-gray-300 px-3 py-2 focus:border-gray-900 focus:outline-none">
+                        </label>
+
+                        <label class="flex flex-col gap-2 text-sm font-medium text-gray-700">
+                            Categoría
+                            <input type="text" name="categoria" required value="{{ producto_edicion.categoria if producto_edicion else '' }}" class="rounded-lg border border-gray-300 px-3 py-2 focus:border-gray-900 focus:outline-none">
+                        </label>
+
+                        <label class="flex flex-col gap-2 text-sm font-medium text-gray-700">
+                            Marca
+                            <input type="text" name="marca" required value="{{ producto_edicion.marca if producto_edicion else '' }}" class="rounded-lg border border-gray-300 px-3 py-2 focus:border-gray-900 focus:outline-none">
+                        </label>
+
+                        <label class="flex flex-col gap-2 text-sm font-medium text-gray-700 md:col-span-2 xl:col-span-3">
+                            Descripción
+                            <textarea name="descripcion" rows="4" required class="rounded-lg border border-gray-300 px-3 py-2 focus:border-gray-900 focus:outline-none">{{ producto_edicion.descripcion if producto_edicion else '' }}</textarea>
+                        </label>
+
+                        <div class="md:col-span-2 xl:col-span-3 flex justify-end">
+                            <button type="submit" class="rounded-lg bg-gray-900 px-5 py-2.5 text-sm font-semibold text-white hover:bg-gray-800">
+                                {% if producto_edicion %}Actualizar producto{% else %}Guardar producto{% endif %}
+                            </button>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h2 class="text-xl font-semibold text-gray-900">Productos registrados</h2>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full divide-y divide-gray-200">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Imagen</th>
+                                    <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Nombre</th>
+                                    <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Precio</th>
+                                    <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Stock</th>
+                                    <th class="px-6 py-3 text-left text-xs font-semibold uppercase tracking-wider text-gray-500">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200 bg-white">
+                                {% for producto in productos %}
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 text-sm text-gray-900">{{ producto.id }}</td>
+                                        <td class="px-6 py-4">
+                                            <img class="h-12 w-12 rounded-lg object-contain bg-gray-100 p-1"
+                                                 src="{{ url_for('static', filename='imagenes/productos/' + producto.imagen_path) }}"
+                                                 alt="{{ producto.nombre }}">
+                                        </td>
+                                        <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ producto.nombre }}</td>
+                                        <td class="px-6 py-4 text-sm text-gray-700">{{ producto.precio }}</td>
+                                        <td class="px-6 py-4 text-sm text-gray-700">{{ producto.stock }}</td>
+                                        <td class="px-6 py-4 text-sm">
+                                            <div class="flex items-center gap-2">
+                                                <a href="{{ url_for('gestionInventario', editar=producto.id) }}" class="rounded-lg border border-gray-300 px-3 py-2 font-medium text-gray-700 hover:bg-gray-100">
+                                                    Editar
+                                                </a>
+                                                <form style="margin-bottom: 0px;" method="POST" action="{{ url_for('eliminar_producto', producto_id=producto.id) }}" onsubmit="return confirm('¿Seguro que deseas eliminar este producto?');">
+                                                    <button type="submit" class="rounded-lg border border-red-200 bg-red-50 px-3 py-2 font-medium text-red-700 hover:bg-red-100">
+                                                        Eliminar
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6" class="px-6 py-8 text-center text-sm text-gray-500">No hay productos disponibles.</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>
+
+<script>
+    // Toggle user menu
+    (function(){
+        const btn = document.getElementById('userProfile');
+        const menu = document.getElementById('userMenu');
+
+        if (!btn || !menu) return;
+
+        function toggleMenu(e){
+            const isHidden = menu.classList.contains('hidden');
+            menu.classList.toggle('hidden', !isHidden === false);
+            // simpler toggle
+            menu.classList.toggle('hidden');
+            btn.setAttribute('aria-expanded', String(!menu.classList.contains('hidden')));
+        }
+
+        btn.addEventListener('click', function(e){
+            e.stopPropagation();
+            menu.classList.toggle('hidden');
+            btn.setAttribute('aria-expanded', String(!menu.classList.contains('hidden')));
+        });
+
+        // Close when clicking outside
+        document.addEventListener('click', function(e){
+            if (!menu.classList.contains('hidden') && !menu.contains(e.target) && !btn.contains(e.target)){
+                menu.classList.add('hidden');
+                btn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    })();
+</script>
+<!-- <script src="{{ url_for('static', filename='js/flowbite.js') }}"></script> -->
